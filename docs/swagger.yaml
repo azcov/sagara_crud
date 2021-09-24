@@ -1,0 +1,351 @@
+definitions:
+  domain.CreateArticleRequest:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  domain.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  domain.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      role_id:
+        type: integer
+    type: object
+  domain.UpdateArticleRequest:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  util.Base:
+    properties:
+      data:
+        type: object
+      message:
+        type: string
+      status:
+        type: string
+      status_code:
+        type: integer
+      timestamp:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /articles:
+    get:
+      consumes:
+      - application/json
+      description: GetArticles User
+      parameters:
+      - description: Bearer (token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      - description: sort by
+        in: query
+        name: sort_by
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: GetArticles User
+      tags:
+      - Article
+    post:
+      consumes:
+      - application/json
+      description: CreateArticle User
+      parameters:
+      - description: Bearer (token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CreateArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: CreateArticle User
+      tags:
+      - Article
+  /articles/{article_id}:
+    delete:
+      consumes:
+      - application/json
+      description: ForceDeleteArticle User
+      parameters:
+      - description: Bearer (token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: article id
+        in: path
+        name: article_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: ForceDeleteArticle User
+      tags:
+      - Article
+    get:
+      consumes:
+      - application/json
+      description: GetArticle User
+      parameters:
+      - description: Bearer (token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: article id
+        in: path
+        name: article_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: GetArticle User
+      tags:
+      - Article
+    put:
+      consumes:
+      - application/json
+      description: UpdateArticle User
+      parameters:
+      - description: Bearer (token)
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: article id
+        in: path
+        name: article_id
+        required: true
+        type: string
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdateArticleRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: UpdateArticle User
+      tags:
+      - Article
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login User
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: Login User
+      tags:
+      - Authentication
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register User
+      parameters:
+      - description: Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Base'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.Base'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/util.Base'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/util.Base'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/util.Base'
+      summary: Register User
+      tags:
+      - Authentication
+swagger: "2.0"

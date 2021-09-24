@@ -1,0 +1,42 @@
+{
+    "app": {
+        "name": "mufid_article",
+        "pod_ip": "",
+        "domain": "",
+        "environment": "",
+        "shoutdown_timeout": "10s"
+    },
+    "http": {
+        "api": {
+            "host": "",
+            "port": 8082,
+            "read_timeout": "10s",
+            "write_timeout": "5s",
+            "idle_timeout": "10s"
+        }
+    },
+    "database": {
+        "pg": {
+            "host": "localhost",
+            "port": "5432",
+            "dbname": "sagara_crud_article",
+            "user": "postgres",
+            "password": "bismillah",
+            "sslmode": "disable",
+            "max_open_connection": 5,
+            "max_idle_connection": 2,
+            "max_connection_lifetime": "5m"
+        }
+    },
+    "auth": {
+        "token_type": "Bearer",
+        "access_token_secret": "some-access-secret",
+        "refresh_token_secret": "some-refresh-secret"
+    },
+    "service": {
+        "auth": {
+            "address": "0.0.0.0",
+            "port": "9091"
+        }
+    }
+}

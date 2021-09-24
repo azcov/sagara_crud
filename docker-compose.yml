@@ -1,0 +1,40 @@
+version: '3'
+services:
+  auth-http:
+    build:
+      context: docker/app
+    volumes:
+      - ./cmd:/cmd
+#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
+    working_dir: /cmd/auth
+    ports:
+      - "3000:3000"
+    environment:
+      APP_ENV: local
+    restart: unless-stopped
+
+  auth-grpc:
+    build:
+      context: docker/app
+    volumes:
+      - ./cmd:/cmd
+#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
+    working_dir: /cmd/auth
+    ports:
+      - "3001:3001"
+    environment:
+      APP_ENV: local
+    restart: unless-stopped
+
+  article-http:
+    build:
+      context: docker/app
+    volumes:
+      - ./cmd:/cmd
+#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
+    working_dir: /cmd/article
+    ports:
+      - "3002:3002"
+    environment:
+      APP_ENV: local
+    restart: unless-stopped
