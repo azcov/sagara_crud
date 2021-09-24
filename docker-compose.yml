@@ -1,0 +1,22 @@
+version: "3.8"
+
+services: 
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_DB: "sagara_crud"
+  app:
+    container_name: "sagara_crud"
+    image: image
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+      - "9091:9091"
+    volumes: 
+      - ./cmd/auth/production.yml:/app/config/auth/production.yml
+      - ./cmd/product/production.yml:/app/config/product/production.yml
+    environment:
+      APP_ENV: "production"
+    restart: unless-stopped

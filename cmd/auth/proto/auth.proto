@@ -1,0 +1,16 @@
+syntax = "proto3";
+package proto;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "gitlab.com/azcov/sagara_crud/cmd/auth/proto";
+
+service AuthService {
+  rpc ValidationToken(google.protobuf.Empty) returns (ValidationTokenResponse) {
+  };
+}
+
+message ValidationTokenResponse {
+  string user_id = 1;
+  int32 role_id = 2;
+}
