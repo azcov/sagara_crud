@@ -33,10 +33,9 @@ $ cp cmd/auth/example.json cmd/auth/local.json
 $ cp cmd/product/example.json cmd/product/local.json
 ```
 
-Update auth service config cmd/auth/local.json with yours
-Update product service config cmd/product/local.json with yours
-
-Update database config on Makefile with yours
+- Update auth service config cmd/auth/local.json with yours
+- Update product service config cmd/product/local.json with yours
+- Update database config on Makefile with yours
 
 
 ```sh

@@ -5,7 +5,7 @@ GIT_COMMIT := $(shell git rev-list -1 HEAD)
 
 # DATABASE
 DB_USER=postgres
-DB_PASSWORD=bismillah
+DB_PASSWORD=posgres
 DB_HOST=127.0.0.1
 DB_PORT=5432
 DB_SSL=disable
