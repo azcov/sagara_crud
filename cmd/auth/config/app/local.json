@@ -26,7 +26,7 @@
         "pg": {
             "host": "localhost",
             "port": "5432",
-            "dbname": "sagara_crud",
+            "dbname": "sagara_crud_auth",
             "user": "postgres",
             "password": "bismillah",
             "sslmode": "disable",

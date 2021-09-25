@@ -9,7 +9,7 @@ var (
 
 	ErrEmailNotFound       = fmt.Errorf("email not found")
 	ErrPasswordDoesntMatch = fmt.Errorf("password doesnt match")
-	ErrArticleNotFound     = fmt.Errorf("article not found")
+	ErrProductNotFound     = fmt.Errorf("product not found")
 )
 
 func CheckErrorType(err error) (int, error) {

@@ -1,4 +1,4 @@
-package article
+package product
 
 import (
 	"fmt"
@@ -11,25 +11,25 @@ import (
 	"github.com/azcov/sagara_crud/internal/logger"
 	"google.golang.org/grpc"
 
-	articleHttp "github.com/azcov/sagara_crud/cmd/article/app/interfaces/http"
-	articleRepo "github.com/azcov/sagara_crud/cmd/article/app/repository/article"
-	articleUsecase "github.com/azcov/sagara_crud/cmd/article/app/usecases"
-	articleConfig "github.com/azcov/sagara_crud/cmd/article/config"
 	authProto "github.com/azcov/sagara_crud/cmd/auth/proto"
+	productHttp "github.com/azcov/sagara_crud/cmd/product/app/interfaces/http"
+	productRepo "github.com/azcov/sagara_crud/cmd/product/app/repository/product"
+	productUsecase "github.com/azcov/sagara_crud/cmd/product/app/usecases"
+	productConfig "github.com/azcov/sagara_crud/cmd/product/config"
 	echoAdapter "github.com/azcov/sagara_crud/internal/http/echo"
 	appMiddleware "github.com/azcov/sagara_crud/internal/http/echo/middleware"
 )
 
-// @title Mufid Article API
+// @name Mufid Product API
 // @version 1.0
 // @BasePath /
 
-func ArticleAdapter() []application.Adapter {
+func ProductAdapter() []application.Adapter {
 	logger := logger.NewLogger()
 
-	cfg := articleConfig.GetConfigJSON(logger)
+	cfg := productConfig.GetConfigJSON(logger)
 
-	pgDB, err := articleConfig.ConnectToPGServer(cfg)
+	pgDB, err := productConfig.ConnectToPGServer(cfg)
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -50,11 +50,11 @@ func ArticleAdapter() []application.Adapter {
 		cfg.Auth.RefreshTokenSecret,
 		time.Second,
 		time.Second)
-	articleRepository := articleRepo.NewRepository(pgDB)
-	articleUsecase := articleUsecase.NewUsecase(cfg, articleRepository)
+	productRepository := productRepo.NewRepository(pgDB)
+	productUsecase := productUsecase.NewUsecase(cfg, productRepository)
 	customMiddleware := appMiddleware.NewMiddleware(authenticator, logger, authGrpcClient)
 
-	router := articleHttp.NewRouter(authenticator, articleUsecase, customMiddleware)
+	router := productHttp.NewRouter(authenticator, productUsecase, customMiddleware)
 
 	router.Server = &http.Server{
 		Addr:         fmt.Sprintf("%s:%d", cfg.HTTP.API.Host, cfg.HTTP.API.Port),
@@ -65,7 +65,7 @@ func ArticleAdapter() []application.Adapter {
 	}
 	return []application.Adapter{
 		echoAdapter.NewAdapter(
-			"ArticleHTTP",
+			"ProductHTTP",
 			router,
 			logger,
 		),

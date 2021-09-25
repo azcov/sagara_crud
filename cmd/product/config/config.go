@@ -62,7 +62,7 @@ func GetConfigJSON(logger *zap.SugaredLogger) *Config {
 	if appEnv == "" {
 		appEnv = "local"
 	}
-	pathConfig := fmt.Sprintf("cmd/article/config/app/%s.json", appEnv)
+	pathConfig := fmt.Sprintf("cmd/product/config/app/%s.json", appEnv)
 
 	logger.Infof("config path = %s", pathConfig)
 

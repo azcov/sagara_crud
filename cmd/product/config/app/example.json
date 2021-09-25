@@ -1,6 +1,6 @@
 {
     "app": {
-        "name": "mufid_article",
+        "name": "mufid_product",
         "pod_ip": "",
         "domain": "",
         "environment": "",
@@ -19,9 +19,9 @@
         "pg": {
             "host": "localhost",
             "port": "5432",
-            "dbname": "sagara_crud_article",
+            "dbname": "sagara_crud_product",
             "user": "postgres",
-            "password": "bismillah",
+            "password": "postgres",
             "sslmode": "disable",
             "max_open_connection": 5,
             "max_idle_connection": 2,

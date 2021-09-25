@@ -6,7 +6,6 @@ import (
 
 	"github.com/azcov/sagara_crud/cmd/auth/app/domain"
 	errorCommon "github.com/azcov/sagara_crud/errors"
-	"go.uber.org/zap"
 )
 
 const getUserByEmail = `-- name: GetUserByEmail :one
@@ -71,10 +70,11 @@ VALUES (
     $5,
     $6
 )
+ON CONFLICT
+DO NOTHING
 `
 
 func (q *Queries) InsertAuthData(ctx context.Context, arg *domain.InsertAuthDataParams) error {
-	zap.S().Infof("%+v", arg)
 	_, err := q.exec(ctx, q.insertAuthDataStmt, insertAuthData,
 		arg.RoleID,
 		arg.Name,

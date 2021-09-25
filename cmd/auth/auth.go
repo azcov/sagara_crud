@@ -24,7 +24,7 @@ import (
 	echoAdapter "github.com/azcov/sagara_crud/internal/http/echo"
 )
 
-// @title Mufid Auth API
+// @name Mufid Auth API
 // @version 1.0
 // @BasePath /
 
