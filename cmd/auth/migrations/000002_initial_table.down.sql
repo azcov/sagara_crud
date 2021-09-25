@@ -1,0 +1,7 @@
+BEGIN;
+
+DROP TABLE IF EXISTS "user_roles" CASCADE;
+DROP TABLE IF EXISTS "user_authentications" CASCADE;
+DROP TABLE IF EXISTS "user_sessions" CASCADE;
+
+COMMIT;
