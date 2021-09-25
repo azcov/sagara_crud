@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/azcov/sagara_crud/cmd/article"
 	"github.com/azcov/sagara_crud/cmd/auth"
+	"github.com/azcov/sagara_crud/cmd/product"
 	"github.com/azcov/sagara_crud/internal/application"
 	"github.com/azcov/sagara_crud/internal/logger"
 )
@@ -22,7 +22,7 @@ func main() {
 
 	app := application.New(logger)
 	app.AddAdapters(auth.AuthAdapter()...)
-	app.AddAdapters(article.ArticleAdapter()...)
+	app.AddAdapters(product.ProductAdapter()...)
 
 	app.WithShutdownTimeout(time.Second * 10)
 	app.Run(ctx)

@@ -8,7 +8,7 @@ import (
 var commonErrorMap = map[error]int{
 	ErrEmailNotFound:       http.StatusNotFound,
 	ErrPasswordDoesntMatch: http.StatusBadRequest,
-	ErrArticleNotFound:     http.StatusNotFound,
+	ErrProductNotFound:     http.StatusNotFound,
 }
 
 // CommonError is

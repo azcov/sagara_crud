@@ -1,40 +1,22 @@
-version: '3'
-services:
-  auth-http:
-    build:
-      context: docker/app
-    volumes:
-      - ./cmd:/cmd
-#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
-    working_dir: /cmd/auth
-    ports:
-      - "3000:3000"
-    environment:
-      APP_ENV: local
-    restart: unless-stopped
+version: "3.8"
 
-  auth-grpc:
-    build:
-      context: docker/app
-    volumes:
-      - ./cmd:/cmd
-#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
-    working_dir: /cmd/auth
-    ports:
-      - "3001:3001"
+services: 
+  postgres:
+    image: postgres:12-alpine
     environment:
-      APP_ENV: local
-    restart: unless-stopped
-
-  article-http:
-    build:
-      context: docker/app
-    volumes:
-      - ./cmd:/cmd
-#      - ./service-account-file.json:$SERVICE_ACCOUNT_FILE
-    working_dir: /cmd/article
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_DB: "sagara_crud"
+  app:
+    container_name: "sagara_crud"
+    image: image
     ports:
-      - "3002:3002"
+      - "8081:8081"
+      - "8082:8082"
+      - "9091:9091"
+    volumes: 
+      - ./cmd/auth/production.yml:/app/config/auth/production.yml
+      - ./cmd/product/production.yml:/app/config/product/production.yml
     environment:
-      APP_ENV: local
+      APP_ENV: "production"
     restart: unless-stopped

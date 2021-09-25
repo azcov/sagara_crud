@@ -6,69 +6,79 @@ import (
 	"github.com/google/uuid"
 )
 
-type CreateArticleRequest struct {
-	Title       string `json:"title"`
+type CreateProductRequest struct {
+	Name        string `json:"name"`
 	Description string `json:"description"`
+	Price       int64  `json:"price"`
+	Qty         int64  `json:"qty"`
 }
 
-type GetArticleRequest struct {
-	ArticleID uuid.UUID `param:"article_id" json:"-"`
+type GetProductRequest struct {
+	ProductID uuid.UUID `param:"product_id" json:"-"`
 }
-type GetArticlesRequest struct {
+type GetProductsRequest struct {
 	Search string `query:"search"`
 	Page   int32  `query:"page"`
 	Limit  int32  `query:"limit"`
 	SortBy string `query:"sort_by"`
 }
 
-type UpdateArticleRequest struct {
-	ArticleID   uuid.UUID `param:"article_id" json:"-"`
-	Title       string    `json:"title"`
+type UpdateProductRequest struct {
+	ProductID   uuid.UUID `param:"product_id" json:"-"`
+	Name        string    `json:"name"`
 	Description string    `json:"description"`
+	Price       int64     `json:"price"`
+	Qty         int64     `json:"qty"`
 }
 
-type DeleteArticleRequest struct {
-	ArticleID uuid.UUID `param:"article_id" json:"-"`
+type DeleteProductRequest struct {
+	ProductID uuid.UUID `param:"product_id" json:"-"`
 }
 
-type ForceDeleteArticleRequest struct {
-	ArticleID uuid.UUID `param:"article_id" json:"-"`
+type ForceDeleteProductRequest struct {
+	ProductID uuid.UUID `param:"product_id" json:"-"`
 }
 
-type GetArticleResponse struct {
-	ArticleID   string  `json:"article_id"`
-	Title       string  `json:"title"`
+type GetProductResponse struct {
+	ProductID   string  `json:"product_id"`
+	Name        string  `json:"name"`
 	Description string  `json:"description"`
+	Price       int64   `json:"price"`
+	Qty         int64   `json:"qty"`
 	CreatedAt   int64   `json:"created_at"`
 	CreatedBy   string  `json:"created_by"`
 	UpdatedAt   *int64  `json:"updated_at"`
 	UpdatedBy   *string `json:"updated_by"`
 }
 
-type InsertArticleParams struct {
-	Title       string    `json:"title"`
+type InsertProductParams struct {
+	Name        string    `json:"name"`
 	Description string    `json:"description"`
+	Price       int64     `json:"price"`
+	Qty         int64     `json:"qty"`
 	CreatedAt   int64     `json:"created_at"`
 	CreatedBy   uuid.UUID `json:"created_by"`
 }
 
-type DeleteArticleParams struct {
+type DeleteProductParams struct {
 	DeletedAt sql.NullInt64 `json:"deleted_at"`
 	DeletedBy uuid.NullUUID `json:"deleted_by"`
-	ArticleID uuid.UUID     `json:"article_id"`
+	ProductID uuid.UUID     `json:"product_id"`
 }
 
-type GetArticleByArticleIDRow struct {
+type GetProductByProductIDRow struct {
 	ID          uuid.UUID     `json:"id"`
-	Title       string        `json:"title"`
+	Name        string        `json:"name"`
 	Description string        `json:"description"`
+	Price       int64         `json:"price"`
+	Qty         int64         `json:"qty"`
 	CreatedAt   int64         `json:"created_at"`
 	CreatedBy   uuid.UUID     `json:"created_by"`
 	UpdatedAt   sql.NullInt64 `json:"updated_at"`
 	UpdatedBy   uuid.NullUUID `json:"updated_by"`
 }
 
-type GetArticlesByUserIDParams struct {
+type GetProductsByUserIDParams struct {
 	UserID    uuid.UUID `json:"user_id"`
 	Search    string    `json:"search"`
 	OrderBy   string    `json:"order_by"`
@@ -76,20 +86,24 @@ type GetArticlesByUserIDParams struct {
 	SqlLimit  int32     `json:"sql_limit"`
 }
 
-type GetArticlesByUserIDRow struct {
+type GetProductsByUserIDRow struct {
 	ID          uuid.UUID     `json:"id"`
-	Title       string        `json:"title"`
+	Name        string        `json:"name"`
 	Description string        `json:"description"`
+	Price       int64         `json:"price"`
+	Qty         int64         `json:"qty"`
 	CreatedAt   int64         `json:"created_at"`
 	CreatedBy   uuid.UUID     `json:"created_by"`
 	UpdatedAt   sql.NullInt64 `json:"updated_at"`
 	UpdatedBy   uuid.NullUUID `json:"updated_by"`
 }
 
-type UpdateArticleParams struct {
-	Title       string        `json:"title"`
+type UpdateProductParams struct {
+	Name        string        `json:"name"`
 	Description string        `json:"description"`
+	Price       int64         `json:"price"`
+	Qty         int64         `json:"qty"`
 	UpdatedAt   sql.NullInt64 `json:"updated_at"`
 	UpdatedBy   uuid.NullUUID `json:"updated_by"`
-	ArticleID   uuid.UUID     `json:"article_id"`
+	ProductID   uuid.UUID     `json:"product_id"`
 }

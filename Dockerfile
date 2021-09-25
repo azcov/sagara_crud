@@ -1,20 +1,40 @@
-# Build Stage
-FROM golang:1.16.5-alpine3.13 AS builder
-WORKDIR /docker/app
-COPY . .
+FROM golang:1.17.0-alpine3.14 as builder
 
-COPY go.mod ./ 
-COPY go.sum ./
-COPY app_config.json ./
+ENV GO111MODULE=on
+
+WORKDIR /app
+
+COPY . ./
+
+RUN go get -u github.com/swaggo/swag/cmd/swag && swag init
 
 RUN go mod download
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
+RUN GOOS=linux GOARCH=amd64 go build -o main .
 
-# run stage
-FROM alpine:3.13
+## Distribution Development
+FROM alpine:latest as dev-env
+
+RUN apk add --no-cache --upgrade ca-certificates tzdata bash 
+
 WORKDIR /app
-COPY --from=builder /app/main .
 
-EXPOSE 8081
-CMD ["/app/main"]
+COPY --from=builder /app/main ./
+
+CMD [ "/app/main" ]
+
+## Distribution Production
+FROM alpine:latest as prod-env
+
+RUN apk add --no-cache ca-certificates tzdata
+
+WORKDIR /app
+
+COPY --from=builder /app/main ./
+COPY --from=builder /app/cmd/auth/production.json ./cmd/auth/
+COPY --from=builder /app/cmd/product/production.json ./cmd/product/
+COPY --from=builder /app/rds-combined-ca-bundle.pem ./
+
+ENV APP_ENV=production
+
+CMD [ "/app/main" ]

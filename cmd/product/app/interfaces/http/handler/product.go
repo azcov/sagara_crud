@@ -1,39 +1,39 @@
 package handler
 
 import (
-	"github.com/azcov/sagara_crud/cmd/article/app/domain"
+	"github.com/azcov/sagara_crud/cmd/product/app/domain"
 	httpUtil "github.com/azcov/sagara_crud/internal/http/echo/util"
 	"github.com/azcov/sagara_crud/pkg/validation"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
-type articleHandler struct {
-	usecase domain.ArticleUsecase
+type productHandler struct {
+	usecase domain.ProductUsecase
 }
 
-func NewArticleHandler(u domain.ArticleUsecase) *articleHandler {
-	return &articleHandler{
+func NewProductHandler(u domain.ProductUsecase) *productHandler {
+	return &productHandler{
 		usecase: u,
 	}
 }
 
-// CreateArticle godoc
-// @Summary CreateArticle User
-// @Description CreateArticle User
-// @Tags Article
+// CreateProduct godoc
+// @Summary CreateProduct User
+// @Description CreateProduct User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
-// @Param request body domain.CreateArticleRequest true "Request Body"
+// @Param request body domain.CreateProductRequest true "Request Body"
 // @Success 200 {object} httpUtil.Base
 // @Failure 400 {object} httpUtil.Base
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles [post]
-func (h *articleHandler) CreateArticle(c echo.Context) error {
-	req := domain.CreateArticleRequest{}
+// @Router /products [post]
+func (h *productHandler) CreateProduct(c echo.Context) error {
+	req := domain.CreateProductRequest{}
 	ctx := c.Request().Context()
 	userID := c.Get("user_id").(uuid.UUID)
 
@@ -49,7 +49,7 @@ func (h *articleHandler) CreateArticle(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	err = h.usecase.CreateArticle(ctx, &req, userID)
+	err = h.usecase.CreateProduct(ctx, &req, userID)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
@@ -57,22 +57,22 @@ func (h *articleHandler) CreateArticle(c echo.Context) error {
 	return httpUtil.CreatedResponse(c, "success create", nil)
 }
 
-// GetArticle godoc
-// @Summary GetArticle User
-// @Description GetArticle User
-// @Tags Article
+// GetProduct godoc
+// @Summary GetProduct User
+// @Description GetProduct User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
-// @Param article_id path string true "article id"
+// @Param product_id path string true "product id"
 // @Success 200 {object} httpUtil.Base
 // @Failure 400 {object} httpUtil.Base
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles/{article_id} [get]
-func (h *articleHandler) GetArticle(c echo.Context) error {
-	req := domain.GetArticleRequest{}
+// @Router /products/{product_id} [get]
+func (h *productHandler) GetProduct(c echo.Context) error {
+	req := domain.GetProductRequest{}
 	ctx := c.Request().Context()
 
 	// parsing
@@ -87,18 +87,18 @@ func (h *articleHandler) GetArticle(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	res, err := h.usecase.GetArticle(ctx, &req)
+	res, err := h.usecase.GetProduct(ctx, &req)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
 
-	return httpUtil.SuccessResponse(c, "success get article", res)
+	return httpUtil.SuccessResponse(c, "success get product", res)
 }
 
-// GetArticles godoc
-// @Summary GetArticles User
-// @Description GetArticles User
-// @Tags Article
+// GetProducts godoc
+// @Summary GetProducts User
+// @Description GetProducts User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
@@ -111,9 +111,9 @@ func (h *articleHandler) GetArticle(c echo.Context) error {
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles [get]
-func (h *articleHandler) GetArticles(c echo.Context) error {
-	req := domain.GetArticlesRequest{}
+// @Router /products [get]
+func (h *productHandler) GetProducts(c echo.Context) error {
+	req := domain.GetProductsRequest{}
 	ctx := c.Request().Context()
 	userID := c.Get("user_id").(uuid.UUID)
 
@@ -129,31 +129,31 @@ func (h *articleHandler) GetArticles(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	res, err := h.usecase.GetArticles(ctx, &req, userID)
+	res, err := h.usecase.GetProducts(ctx, &req, userID)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
 
-	return httpUtil.SuccessResponse(c, "success get article", res)
+	return httpUtil.SuccessResponse(c, "success get product", res)
 }
 
-// UpdateArticle godoc
-// @Summary UpdateArticle User
-// @Description UpdateArticle User
-// @Tags Article
+// UpdateProduct godoc
+// @Summary UpdateProduct User
+// @Description UpdateProduct User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
-// @Param article_id path string true "article id"
-// @Param request body domain.UpdateArticleRequest true "Request Body"
+// @Param product_id path string true "product id"
+// @Param request body domain.UpdateProductRequest true "Request Body"
 // @Success 200 {object} httpUtil.Base
 // @Failure 400 {object} httpUtil.Base
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles/{article_id} [put]
-func (h *articleHandler) UpdateArticle(c echo.Context) error {
-	req := domain.UpdateArticleRequest{}
+// @Router /products/{product_id} [put]
+func (h *productHandler) UpdateProduct(c echo.Context) error {
+	req := domain.UpdateProductRequest{}
 	ctx := c.Request().Context()
 	userID := c.Get("user_id").(uuid.UUID)
 
@@ -169,30 +169,30 @@ func (h *articleHandler) UpdateArticle(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	err = h.usecase.UpdateArticle(ctx, &req, userID)
+	err = h.usecase.UpdateProduct(ctx, &req, userID)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
 
-	return httpUtil.SuccessResponse(c, "success update article", nil)
+	return httpUtil.SuccessResponse(c, "success update product", nil)
 }
 
-// DeleteArticle godoc
-// @Summary DeleteArticle User
-// @Description DeleteArticle User
-// @Tags Article
+// DeleteProduct godoc
+// @Summary DeleteProduct User
+// @Description DeleteProduct User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
-// @Param article_id path string true "article id"
+// @Param product_id path string true "product id"
 // @Success 200 {object} httpUtil.Base
 // @Failure 400 {object} httpUtil.Base
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles/{article_id} [delete]
-func (h *articleHandler) DeleteArticle(c echo.Context) error {
-	req := domain.DeleteArticleRequest{}
+// @Router /products/{product_id} [delete]
+func (h *productHandler) DeleteProduct(c echo.Context) error {
+	req := domain.DeleteProductRequest{}
 	ctx := c.Request().Context()
 	userID := c.Get("user_id").(uuid.UUID)
 
@@ -208,30 +208,30 @@ func (h *articleHandler) DeleteArticle(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	err = h.usecase.DeleteArticle(ctx, &req, userID)
+	err = h.usecase.DeleteProduct(ctx, &req, userID)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
 
-	return httpUtil.SuccessResponse(c, "success delete article", nil)
+	return httpUtil.SuccessResponse(c, "success delete product", nil)
 }
 
-// ForceDeleteArticle godoc
-// @Summary ForceDeleteArticle User
-// @Description ForceDeleteArticle User
-// @Tags Article
+// ForceDeleteProduct godoc
+// @Summary ForceDeleteProduct User
+// @Description ForceDeleteProduct User
+// @Tags Product
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Bearer (token)"
-// @Param article_id path string true "article id"
+// @Param product_id path string true "product id"
 // @Success 200 {object} httpUtil.Base
 // @Failure 400 {object} httpUtil.Base
 // @Failure 401 {object} httpUtil.Base
 // @Failure 404 {object} httpUtil.Base
 // @Failure 500 {object} httpUtil.Base
-// @Router /articles/{article_id} [delete]
-func (h *articleHandler) ForceDeleteArticle(c echo.Context) error {
-	req := domain.ForceDeleteArticleRequest{}
+// @Router /products/{product_id} [delete]
+func (h *productHandler) ForceDeleteProduct(c echo.Context) error {
+	req := domain.ForceDeleteProductRequest{}
 	ctx := c.Request().Context()
 
 	// parsing
@@ -246,10 +246,10 @@ func (h *articleHandler) ForceDeleteArticle(c echo.Context) error {
 		return httpUtil.ErrorValidate(c, err, nil)
 	}
 
-	err = h.usecase.ForceDeleteArticle(ctx, &req)
+	err = h.usecase.ForceDeleteProduct(ctx, &req)
 	if err != nil {
 		return httpUtil.ErrorResponse(c, err, nil)
 	}
 
-	return httpUtil.SuccessResponse(c, "success force delete article", nil)
+	return httpUtil.SuccessResponse(c, "success force delete product", nil)
 }
